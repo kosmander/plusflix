@@ -1,3 +1,4 @@
+drop table if exists platforms;
 create table platforms
 (
     id      integer not null

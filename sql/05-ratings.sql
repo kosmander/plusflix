@@ -1,3 +1,4 @@
+drop table if exists ratings;
 create table ratings
 (
     id      integer not null

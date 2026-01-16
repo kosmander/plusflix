@@ -1,3 +1,4 @@
+drop table if exists productions;
 create table productions
 (
     id      integer not null

@@ -1,3 +1,4 @@
+drop table if exists production_category;
 create table production_category
 (
     id_produkcji integer not null,

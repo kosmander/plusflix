@@ -1,3 +1,4 @@
+drop table if exists tags;
 create table tags
 (
     id      integer not null

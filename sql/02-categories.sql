@@ -1,3 +1,4 @@
+drop table if exists categories;
 create table categories
 (
     id      integer not null
