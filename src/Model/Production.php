@@ -32,8 +32,11 @@ class Production extends Model
 
     public function getPlakatUrl(): ?string { return $this->plakat_url; }
     public function setPlakatUrl(?string $plakat_url): self { $this->plakat_url = $plakat_url; return $this; }
+
     public function getPlatforms(): array { return $this->platforms; }
+
     public function getCategories(): array { return $this->categories; }
+
     public function getTags(): array { return $this->tags; }
 
     // Obsługa tablic asocjacyjnych
