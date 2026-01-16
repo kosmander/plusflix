@@ -7,12 +7,13 @@ use App\Model\Model;
 class Production extends Model
 {
     protected static string $tableName = 'productions';
-    protected array $columns = ['tytul', 'opis', 'typ', 'rok', 'plakat_url'];
+    protected array $columns = ['tytul', 'opis', 'typ', 'rok', 'kraj', 'plakat_url'];
 
     protected ?string $tytul = null;
     protected ?string $opis = null;
     protected ?string $typ = null;
     protected ?int $rok = null;
+    protected ?string $kraj = null;
     protected ?string $plakat_url = null;
     private array $platforms = [];
     private array $categories = [];
@@ -29,6 +30,9 @@ class Production extends Model
 
     public function getRok(): ?int { return $this->rok; }
     public function setRok(?int $rok): self { $this->rok = $rok; return $this; }
+
+    public function getKraj(): ?string { return $this->kraj; }
+    public function setKraj(?string $kraj): self { $this->kraj = $kraj; return $this; }
 
     public function getPlakatUrl(): ?string { return $this->plakat_url; }
     public function setPlakatUrl(?string $plakat_url): self { $this->plakat_url = $plakat_url; return $this; }

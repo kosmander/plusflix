@@ -8,5 +8,6 @@ create table productions
     opis       text not null,
     typ        text not null check (typ in ('film', 'serial')),
     rok        integer not null,
+    kraj       text,
     plakat_url text not null
 );
