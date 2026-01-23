@@ -50,6 +50,39 @@ class Production extends Model
         // Przekazujemy: Klasę, tabelę łączącą, klucz źródła, klucz celu
         return $this->loadManyToMany(Platform::class, 'production_platform', 'id_produkcji', 'id_platformy');
     }
+
+    // Pobieranie platform z sezonami
+    public function loadPlatformsWithSeasons(): array
+    {
+        $pdo = self::getPdo();
+        $sql = "SELECT p.*, pp.dostepny_sezon
+                FROM platforms p
+                JOIN production_platform pp ON p.id = pp.id_platformy
+                WHERE pp.id_produkcji = :id
+                ORDER BY p.nazwa, pp.dostepny_sezon";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(['id' => $this->getId()]);
+        $rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+        // Grupujemy sezony per platforma
+        $result = [];
+        foreach ($rows as $row) {
+            $platformId = $row['id'];
+            if (!isset($result[$platformId])) {
+                $platform = Platform::fromArray($row);
+                $result[$platformId] = [
+                    'platform' => $platform,
+                    'seasons' => []
+                ];
+            }
+            if ($row['dostepny_sezon'] !== null) {
+                $result[$platformId]['seasons'][] = (int)$row['dostepny_sezon'];
+            }
+        }
+
+        return array_values($result);
+    }
     public function addPlatform(int $platformId, ?int $season = null): void
     {
         $extra = $season ? ['dostepny_sezon' => $season] : [];
